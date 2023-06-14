@@ -3,8 +3,6 @@ import { Button, Row } from "react-bootstrap";
 
 
 class Buttons extends React.Component {
-
-
     render() {
         console.log('props that live in the Buttons component', this.props)
         return (

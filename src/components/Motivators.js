@@ -13,7 +13,6 @@ import { Form, Button } from "react-bootstrap";
 import { withAuth0 } from "@auth0/auth0-react";
 import Vids from "./Vids";
 
-
 class Motivators extends Component {
     constructor(props) {
         super(props);
