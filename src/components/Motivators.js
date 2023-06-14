@@ -44,9 +44,9 @@ class Motivators extends Component {
             .catch(err => console.error(err));
     }
 
-    addQuote = (newQuote) => {
-        console.log('newQuote ', newQuote);
-        const addedQuote = this.state.quotes.filter(quote => quote.author === newQuote);
+    addQuote = (likedQuote) => {
+        console.log('newQuote ', likedQuote);
+        const addedQuote = this.state.quotes.filter(quoteObj => quoteObj.quote === likedQuote);
         this.setState({singleQuote: addedQuote}, () => console.log(this.state.singleQuote));
 
         this.getToken()
