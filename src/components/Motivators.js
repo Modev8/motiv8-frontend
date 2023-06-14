@@ -1,13 +1,13 @@
 
 import { Component } from "react";
 import axios from "axios";
-import Images from "./Images";
 import Quotes from "./Quotes";
 import Buttons from "./Buttons";
 import Comments from "./Comments";
 import ProductivityScore from "./ProductivityScore";
 import CumulativeScore from "./CumulativeScore";
 import Loved from "./Loved";
+import Photo from "./Photo";
 import { Container, Col, Row } from "react-bootstrap";
 import { Form, Button } from "react-bootstrap";
 import { withAuth0 } from "@auth0/auth0-react";
@@ -21,11 +21,9 @@ class Motivators extends Component {
             quotes: [],
             currentVids: false,
             motivation: null,
-            videos: [],
-            images: []
+            videos: []
         }
     }
-
 
     getToken = () => {
         return this.props.auth0.getIdTokenClaims()
@@ -41,7 +39,19 @@ class Motivators extends Component {
                 }
                 return axios.get(`${process.env.REACT_APP_SERVER}/quotes`, config)
             })
-            .then(quoteData => this.setState({ quotes: quoteData.data }))
+            .then(quoteData => this.setState({ quotes: quoteData.data.data }))
+            .catch(err => console.error(err));
+    }
+
+    addQuote = (newQuote) => {
+        this.getToken()
+            .then(jwt => {
+                const config = {
+                    headers: { 'Authorization': `Bearer ${jwt}` }
+                }
+                return axios.post(`${process.env.REACT_APP_SERVER}/quotes`, newQuote, config)
+            })
+            .then(response => this.setState({ quotes: [...this.state.quotes, response.data] }))
             .catch(err => console.error(err));
     }
 
@@ -50,7 +60,6 @@ class Motivators extends Component {
         const Answer = { dailyMotivation: e.target.dailyMotivation.value }
         this.setState({ motivation: Answer.dailyMotivation }, () => console.log(this.state.motivation));
         this.displayVids();
-
     }
 
     displayVids = (e) => {
@@ -69,7 +78,7 @@ class Motivators extends Component {
 
 
     render() {
-    const vidsArr = this.state.videos.map((vid, idx) =>
+        const vidsArr = this.state.videos.map((vid, idx) =>
             <Vids
                 key={idx}
                 name={vid.name}
@@ -97,10 +106,10 @@ class Motivators extends Component {
                                         <Quotes quotes={this.state.quotes} />
                                     </Row>
                                     <Row>
-                                        <Images images={this.state.images} />
+                                        <Photo images={this.state.images} />
                                     </Row>
                                     <Row>
-                                    {vidsArr}
+                                        {vidsArr}
                                     </Row>
                                 </Col>
                                 <Col>
@@ -111,7 +120,7 @@ class Motivators extends Component {
                             </Row>
                             <Row>
                                 <Col>
-                                    <Buttons />
+                                    <Buttons getQuotes={this.getQuotes} />
                                 </Col>
                                 <Col>
                                     <Loved />
