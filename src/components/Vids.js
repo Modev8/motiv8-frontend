@@ -1,6 +1,5 @@
 import React from 'react';
 import YouTube from 'react-youtube';
-import { Container } from 'react-bootstrap';
 import { withAuth0 } from "@auth0/auth0-react";
 // import { ListGroup } from "react-bootstrap";
 
@@ -16,19 +15,18 @@ class Vids extends React.Component {
     }
 
     render() {
-        const {width,height} = this.props;
         const opts = {
-            height,
-            width
+            height: "100%",
+            width: "auto",
         };
         return (
             <>
-                <Container>
+               <div style={{ maxWidth: '500px', margin: '0 auto', padding: '16px' }}>
                     <YouTube
                     videoId={this.getVideoId(this.props.url)}
                     opts = {opts}
                     />
-                </Container>
+                </div>
 
                 {/* <ListGroup style={{ maxHeight: '400px', overflowY: 'auto' }}>
                     {this.props.newsItems.map((item, index) => (
