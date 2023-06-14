@@ -8,7 +8,7 @@ import ProductivityScore from "./ProductivityScore";
 import CumulativeScore from "./CumulativeScore";
 import Loved from "./Loved";
 import Photo from "./Photo";
-import { Container, Col, Row } from "react-bootstrap";
+import images from "../testData/images.json";
 import { Form, Button } from "react-bootstrap";
 import { withAuth0 } from "@auth0/auth0-react";
 import Vids from "./Vids";
@@ -20,6 +20,7 @@ class Motivators extends Component {
             quotes: [],
             currentVids: false,
             motivation: null,
+            staticImages: images.images,
             videos: [],
             singleQuote: {}
         }
@@ -47,7 +48,7 @@ class Motivators extends Component {
     addQuote = (newQuote) => {
         console.log('newQuote ', newQuote);
         const addedQuote = this.state.quotes.filter(quote => quote.author === newQuote);
-        this.setState({singleQuote: addedQuote}, () => console.log(this.state.singleQuote));
+        this.setState({ singleQuote: addedQuote }, () => console.log(this.state.singleQuote));
 
         this.getToken()
             .then(jwt => {
@@ -92,49 +93,25 @@ class Motivators extends Component {
                 width={vid.content.width}
                 height={vid.content.height}
             />)
-            console.log('functionality available in props.auth0', this.props.auth0);
+        console.log('functionality available in props.auth0', this.props.auth0);
         return (
             <>
                 {
                     this.state.currentVids
-                        ? <Container>
-                            <Row>
-                                <Col>
-                                    <Row>
-                                        <Col>
-                                            <ProductivityScore />
-                                        </Col>
-                                        <Col>
-                                            <CumulativeScore />
-                                        </Col>
-                                    </Row>
-                                    <Row>
-                                        <Quotes 
-                                        quotes={this.state.quotes}
-                                        addQuote={this.addQuote} />
-                                    </Row>
-                                    <Row>
-                                        <Photo images={this.state.images} />
-                                    </Row>
-                                    <Row>
-                                        {vidsArr}
-                                    </Row>
-                                </Col>
-                                <Col>
-                                    <Row>
-                                        <Comments />
-                                    </Row>
-                                </Col>
-                            </Row>
-                            <Row>
-                                <Col>
-                                    <Buttons getQuotes={this.getQuotes}/>
-                                </Col>
-                                <Col>
-                                    <Loved />
-                                </Col>
-                            </Row>
-                        </Container>
+                        ? <>
+                            <ProductivityScore />
+                            <CumulativeScore />
+                            <Quotes
+                                quotes={this.state.quotes}
+                                addQuote={this.addQuote} 
+                                images={this.state.staticImages}/>
+                            <Photo />
+                            {vidsArr}
+                            <Comments />
+                            <Buttons getQuotes={this.getQuotes} />
+                            <Loved />
+
+                        </>
                         : <Form onSubmit={this.handleSubmit}>
                             <Form.Group controlId="dailyMotivation">
                                 <Form.Control type="text" placeholder="What are you trying to find motivation for today?" />
