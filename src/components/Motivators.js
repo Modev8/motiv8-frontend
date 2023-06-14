@@ -29,20 +29,20 @@ class Motivators extends Component {
 
     getToken = () => {
         return this.props.auth0.getIdTokenClaims()
-        .then(res => res.__raw)
-        .catch(err => console.error(err))
+            .then(res => res.__raw)
+            .catch(err => console.error(err))
     }
 
     getQuotes = () => {
         this.getToken()
-        .then(jwt => {
-            const config = {
-                headers: {'Authorization': `Bearer ${jwt}`}
-            }
-            return axios.get(`${process.env.REACT_APP_SERVER}/quotes`, config)
-        })
-        .then(quoteData => this.setState({quotes: quoteData.data}))
-        .catch(err => console.error(err));
+            .then(jwt => {
+                const config = {
+                    headers: { 'Authorization': `Bearer ${jwt}` }
+                }
+                return axios.get(`${process.env.REACT_APP_SERVER}/quotes`, config)
+            })
+            .then(quoteData => this.setState({ quotes: quoteData.data }))
+            .catch(err => console.error(err));
     }
 
     handleSubmit = (e) => {
@@ -66,56 +66,58 @@ class Motivators extends Component {
             })
     }
 
+
+
     render() {
-        const vidsArr = this.state.videos.map((vid, idx) =>
-            <Vids 
-            key={idx}
-            name= {vid.name}
-            description = {vid.description}
-            url = {vid.content.url}
-            width = {vid.content.width}
-            height = {vid.content.height}
+    const vidsArr = this.state.videos.map((vid, idx) =>
+            <Vids
+                key={idx}
+                name={vid.name}
+                description={vid.description}
+                url={vid.content.url}
+                width={vid.content.width}
+                height={vid.content.height}
             />)
         return (
             <>
                 {
                     this.state.currentVids
-                        ?      <Container>
-                <Row>
-                    <Col>
-                        <Row>
-                            <Col>
-                                <ProductivityScore />
-                            </Col>
-                            <Col>
-                                <CumulativeScore />
-                            </Col>
-                        </Row>
-                        <Row>
-                            <Quotes quotes={this.state.quotes} />
-                        </Row>
-                        <Row>
-                            <Images images={this.state.images} />
-                        </Row>
-                    </Col>
-                    <Col>
-                        <Row>
-                            <Comments />
-                        </Row>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col>
-                        {vidsArr}
-                    </Col>
-                    <Col>
-                        <Buttons />
-                    </Col>
-                    <Col>
-                        <Loved />
-                    </Col>
-                </Row>
-            </Container>
+                        ? <Container>
+                            <Row>
+                                <Col>
+                                    <Row>
+                                        <Col>
+                                            <ProductivityScore />
+                                        </Col>
+                                        <Col>
+                                            <CumulativeScore />
+                                        </Col>
+                                    </Row>
+                                    <Row>
+                                        <Quotes quotes={this.state.quotes} />
+                                    </Row>
+                                    <Row>
+                                        <Images images={this.state.images} />
+                                    </Row>
+                                    <Row>
+                                    {vidsArr}
+                                    </Row>
+                                </Col>
+                                <Col>
+                                    <Row>
+                                        <Comments />
+                                    </Row>
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col>
+                                    <Buttons />
+                                </Col>
+                                <Col>
+                                    <Loved />
+                                </Col>
+                            </Row>
+                        </Container>
                         : <Form onSubmit={this.handleSubmit}>
                             <Form.Group controlId="dailyMotivation">
                                 <Form.Control type="text" placeholder="What are you trying to find motivation for today?" />

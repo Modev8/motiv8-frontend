@@ -3,6 +3,9 @@ import { Button, Row } from "react-bootstrap";
 
 
 class Buttons extends React.Component {
+
+
+
     render() {
         return (
             <div className="custom-buttons">
@@ -10,7 +13,7 @@ class Buttons extends React.Component {
                     <Button variant="primary">Get Quotes</Button>
                 </Row>
                 <Row>
-                    <Button variant="success">Get Videos</Button>
+                    <Button variant="success" >Get Videos</Button>
                 </Row>
                 <Row>
                     <Button variant="warning">Get Images</Button>
