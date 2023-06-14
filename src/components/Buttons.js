@@ -8,7 +8,7 @@ class Buttons extends React.Component {
         return (
             <div className="custom-buttons">
                 <Row>
-                    <Button variant="primary" onClick={this.props.getQuotes}>Get Quotes</Button>
+                    <Button variant="primary" onClick={this.props.getQuotes}>Find More Quotes</Button>
                 </Row>
                 {/* <Row>
                     <Button variant="success" >Get Videos</Button>

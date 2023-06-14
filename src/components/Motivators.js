@@ -4,9 +4,6 @@ import axios from "axios";
 import Quotes from "./Quotes";
 import Buttons from "./Buttons";
 import Comments from "./Comments";
-import ProductivityScore from "./ProductivityScore";
-import CumulativeScore from "./CumulativeScore";
-import Loved from "./Loved";
 import Photo from "./Photo";
 import { Container, Col, Row } from "react-bootstrap";
 import { Form, Button } from "react-bootstrap";
@@ -92,7 +89,7 @@ class Motivators extends Component {
                 width={vid.content.width}
                 height={vid.content.height}
             />)
-            console.log('functionality available in props.auth0', this.props.auth0);
+            // console.log('functionality available in props.auth0', this.props.auth0);
         return (
             <>
                 {
@@ -102,10 +99,8 @@ class Motivators extends Component {
                                 <Col>
                                     <Row>
                                         <Col>
-                                            <ProductivityScore />
                                         </Col>
                                         <Col>
-                                            <CumulativeScore />
                                         </Col>
                                     </Row>
                                     <Row>
@@ -131,7 +126,6 @@ class Motivators extends Component {
                                     <Buttons getQuotes={this.getQuotes}/>
                                 </Col>
                                 <Col>
-                                    <Loved />
                                 </Col>
                             </Row>
                         </Container>
