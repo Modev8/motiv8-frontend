@@ -1,6 +1,6 @@
 import React from "react";
+import axios from "axios";
 import itemData from "../testData/newsItems.json";
-import quoteData from "../testData/quotes.json"
 import Music from "./Music";
 import Images from "./Images";
 import Quotes from "./Quotes";
@@ -17,9 +17,27 @@ class Motivators extends React.Component {
         super(props);
         this.state = {
             newsItems: itemData.items,
-            quotes: quoteData.data,
+            quotes: [],
             images: []
         }
+    }
+
+    getToken = () => {
+        return this.props.auth0.getIdTokenClaims()
+        .then(res => res.__raw)
+        .catch(err => console.error(err))
+    }
+
+    getQuotes = () => {
+        this.getToken()
+        .then(jwt => {
+            const config = {
+                headers: {'Authorization': `Bearer ${jwt}`}
+            }
+            return axios.get(`${process.env.REACT_APP_SERVER}/quotes`, config)
+        })
+        .then(quoteData => this.setState({quotes: quoteData.data}))
+        .catch(err => console.error(err));
     }
 
     render() {

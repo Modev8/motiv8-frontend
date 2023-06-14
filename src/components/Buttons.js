@@ -5,23 +5,23 @@ import { Button, Row } from "react-bootstrap";
 class Buttons extends React.Component {
     render() {
         return (
-            <>
+            <div className="custom-buttons">
                 <Row>
-                    <Button variant="primary">Accomplishments</Button>
+                    <Button variant="primary">Get Quotes</Button>
                 </Row>
                 <Row>
-                    <Button variant="success">Find Motiv8tors</Button>
+                    <Button variant="success">Get Videos</Button>
                 </Row>
                 <Row>
-                    <Button variant="warning">Get Motivational Content</Button>
+                    <Button variant="warning">Get Images</Button>
                 </Row>
                 <Row>
-                    <Button variant="danger">Placeholder</Button>
+                    <Button variant="danger">Find Motiv8tors</Button>
                 </Row>
                 <Row>
                     <Button variant="info">Placeholder</Button>
                 </Row>
-            </>
+            </div>
         )
     }
 }
