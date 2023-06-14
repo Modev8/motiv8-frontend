@@ -31,7 +31,7 @@ class Quote extends React.Component {
                             {' '}
                         </p>
                         <footer className="blockquote-footer">
-                            {this.props.itemData.quoteAuthor}<cite title="Source Title">Source Title</cite>
+                            {this.props.itemData.quoteAuthor}
                         </footer>
                     </blockquote>
                 </Card.Body>
