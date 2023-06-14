@@ -10,7 +10,7 @@ class Buttons extends React.Component {
                 <Row>
                     <Button variant="primary" onClick={this.props.getQuotes}>Get Quotes</Button>
                 </Row>
-                <Row>
+                {/* <Row>
                     <Button variant="success" >Get Videos</Button>
                 </Row>
                 <Row>
@@ -21,7 +21,7 @@ class Buttons extends React.Component {
                 </Row>
                 <Row>
                     <Button variant="info">Placeholder</Button>
-                </Row>
+                </Row> */}
             </div>
         )
     }
