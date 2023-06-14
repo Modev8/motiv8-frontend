@@ -66,8 +66,10 @@ class Motivators extends Component {
             })
     }
 
+
+
     render() {
-        const vidsArr = this.state.videos.map((vid, idx) =>
+    const vidsArr = this.state.videos.map((vid, idx) =>
             <Vids
                 key={idx}
                 name={vid.name}
@@ -97,6 +99,9 @@ class Motivators extends Component {
                                     <Row>
                                         <Images images={this.state.images} />
                                     </Row>
+                                    <Row>
+                                    {vidsArr}
+                                    </Row>
                                 </Col>
                                 <Col>
                                     <Row>
@@ -106,10 +111,7 @@ class Motivators extends Component {
                             </Row>
                             <Row>
                                 <Col>
-                                    {vidsArr}
-                                </Col>
-                                <Col>
-                                    <Buttons  />
+                                    <Buttons />
                                 </Col>
                                 <Col>
                                     <Loved />
