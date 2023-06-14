@@ -20,13 +20,15 @@ class Motivators extends Component {
             quotes: [],
             currentVids: false,
             motivation: null,
-            videos: []
+            videos: [],
+            singleQuote: {}
         }
     }
 
     getToken = () => {
         return this.props.auth0.getIdTokenClaims()
             .then(res => res.__raw)
+            // .then(token => console.log(token))
             .catch(err => console.error(err))
     }
 
@@ -43,14 +45,18 @@ class Motivators extends Component {
     }
 
     addQuote = (newQuote) => {
+        console.log('newQuote ', newQuote);
+        const addedQuote = this.state.quotes.filter(quote => quote.author === newQuote);
+        this.setState({singleQuote: addedQuote}, () => console.log(this.state.singleQuote));
+
         this.getToken()
             .then(jwt => {
                 const config = {
                     headers: { 'Authorization': `Bearer ${jwt}` }
                 }
-                return axios.post(`${process.env.REACT_APP_SERVER}/quotes`, newQuote, config)
+                return axios.post(`${process.env.REACT_APP_SERVER}/quotes`, addedQuote, config)
             })
-            .then(response => this.setState({ quotes: [...this.state.quotes, response.data] }))
+            // .then(response => this.setState({ singleQuote: [...this.state.quotes, response.data] }))
             .catch(err => console.error(err));
     }
 
@@ -86,6 +92,7 @@ class Motivators extends Component {
                 width={vid.content.width}
                 height={vid.content.height}
             />)
+            console.log('functionality available in props.auth0', this.props.auth0);
         return (
             <>
                 {
@@ -102,7 +109,9 @@ class Motivators extends Component {
                                         </Col>
                                     </Row>
                                     <Row>
-                                        <Quotes quotes={this.state.quotes} />
+                                        <Quotes 
+                                        quotes={this.state.quotes}
+                                        addQuote={this.addQuote} />
                                     </Row>
                                     <Row>
                                         <Photo images={this.state.images} />
@@ -119,7 +128,7 @@ class Motivators extends Component {
                             </Row>
                             <Row>
                                 <Col>
-                                    <Buttons getQuotes={this.getQuotes} />
+                                    <Buttons getQuotes={this.getQuotes}/>
                                 </Col>
                                 <Col>
                                     <Loved />
