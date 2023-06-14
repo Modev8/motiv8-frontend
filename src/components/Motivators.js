@@ -1,22 +1,48 @@
+
 import { Component } from "react";
-import quoteData from "../testData/quotes.json"
+import axios from "axios";
 import Images from "./Images";
 import Quotes from "./Quotes";
-import axios from "axios";
+import Buttons from "./Buttons";
+import Comments from "./Comments";
+import ProductivityScore from "./ProductivityScore";
+import CumulativeScore from "./CumulativeScore";
+import Loved from "./Loved";
+import { Container, Col, Row } from "react-bootstrap";
 import { Form, Button } from "react-bootstrap";
 import { withAuth0 } from "@auth0/auth0-react";
 import Vids from "./Vids";
+
 
 class Motivators extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            quotes: [],
             currentVids: false,
             motivation: null,
-            quotes: quoteData.data,
             videos: [],
             images: []
         }
+    }
+
+
+    getToken = () => {
+        return this.props.auth0.getIdTokenClaims()
+        .then(res => res.__raw)
+        .catch(err => console.error(err))
+    }
+
+    getQuotes = () => {
+        this.getToken()
+        .then(jwt => {
+            const config = {
+                headers: {'Authorization': `Bearer ${jwt}`}
+            }
+            return axios.get(`${process.env.REACT_APP_SERVER}/quotes`, config)
+        })
+        .then(quoteData => this.setState({quotes: quoteData.data}))
+        .catch(err => console.error(err));
     }
 
     handleSubmit = (e) => {
@@ -54,11 +80,42 @@ class Motivators extends Component {
             <>
                 {
                     this.state.currentVids
-                        ? <>
-                            {vidsArr}
-                            <Images images={this.state.images} />
+                        ?      <Container>
+                <Row>
+                    <Col>
+                        <Row>
+                            <Col>
+                                <ProductivityScore />
+                            </Col>
+                            <Col>
+                                <CumulativeScore />
+                            </Col>
+                        </Row>
+                        <Row>
                             <Quotes quotes={this.state.quotes} />
-                        </>
+                        </Row>
+                        <Row>
+                            <Images images={this.state.images} />
+                        </Row>
+                    </Col>
+                    <Col>
+                        <Row>
+                            <Comments />
+                        </Row>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        {vidsArr}
+                    </Col>
+                    <Col>
+                        <Buttons />
+                    </Col>
+                    <Col>
+                        <Loved />
+                    </Col>
+                </Row>
+            </Container>
                         : <Form onSubmit={this.handleSubmit}>
                             <Form.Group controlId="dailyMotivation">
                                 <Form.Control type="text" placeholder="What are you trying to find motivation for today?" />
