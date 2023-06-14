@@ -5,12 +5,12 @@ import { Button, Row } from "react-bootstrap";
 class Buttons extends React.Component {
 
 
-
     render() {
+        console.log('props that live in the Buttons component', this.props)
         return (
             <div className="custom-buttons">
                 <Row>
-                    <Button variant="primary">Get Quotes</Button>
+                    <Button variant="primary" onClick={this.props.getQuotes}>Get Quotes</Button>
                 </Row>
                 <Row>
                     <Button variant="success" >Get Videos</Button>

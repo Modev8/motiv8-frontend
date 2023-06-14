@@ -4,6 +4,7 @@ import { withAuth0 } from "@auth0/auth0-react";
 
 class Quotes extends React.Component {
     render() {
+        console.log('this.props.quotes contains', this.props.quotes)
         return (
             <>
                     <Card style={{ maxWidth: '40rem' }}>
@@ -27,11 +28,11 @@ class Quote extends React.Component {
                     <blockquote className="blockquote mb-0">
                         <p>
                             {' '}
-                            {this.props.itemData.quoteText}
+                            {this.props.itemData.quote}
                             {' '}
                         </p>
                         <footer className="blockquote-footer">
-                            {this.props.itemData.quoteAuthor}
+                            {this.props.itemData.author}
                         </footer>
                     </blockquote>
                 </Card.Body>
