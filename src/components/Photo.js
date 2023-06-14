@@ -49,7 +49,7 @@ class Photo extends React.Component {
           <Button type="submit">Submit</Button>
         </Form>
 
-        {this.state.photos.length > 0 &&
+        {/* {this.state.photos.length > 0 &&
           this.state.photos.map((photo, idx) => (
             <div key={idx}>
               {photo.img_url && (
@@ -64,7 +64,23 @@ class Photo extends React.Component {
 
               <span>photo by: {photo.photographer} from unsplash</span>
             </div>
-          ))}
+          ))} */}
+        {this.state.photos.length > 0 &&
+          this.state.photos.map((photo, idx) => (
+            <div key={idx}>
+              {photo.imageURL && (
+                <a href={photo.imageURL}>
+                  <img
+                    alt={photo.description}
+                    width={200}
+                    src={photo.imageURL}
+                  />
+                </a>
+              )}
+              <span>photo by: {photo.creator}</span>
+            </div>
+          ))
+        }
       </>
     );
   }

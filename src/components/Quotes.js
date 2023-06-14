@@ -7,7 +7,7 @@ class Quotes extends React.Component {
         console.log('this.props.quotes contains', this.props.quotes)
         return (
             <>
-                    <Card style={{ maxWidth: '40rem' }}>
+                    <Card style={{ maxWidth: '100%' }}>
                         {
                             this.props.quotes.map((item, idx) =>
                                 <Quote key={idx} itemData={item} />)
@@ -17,6 +17,7 @@ class Quotes extends React.Component {
         )
     }
 }
+// }:?""
 
 class Quote extends React.Component {
     render() {
