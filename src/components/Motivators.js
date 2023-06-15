@@ -1,4 +1,3 @@
-
 import { Component } from "react";
 import axios from "axios";
 import Quotes from "./Quotes";
@@ -24,10 +23,6 @@ class Motivators extends Component {
         }
     }
 
-    componentDidMount() {
-        this.getQuotes();
-    }
-
     getToken = () => {
         return this.props.auth0.getIdTokenClaims()
             .then(res => res.__raw)
@@ -48,7 +43,7 @@ class Motivators extends Component {
             .catch(err => console.error(err));
     }
 
-     //this route hits the server and then grabs previously liked quotes from the user's db
+    //this route hits the server and then grabs previously liked quotes from the user's db
     getQuotes = () => {
         this.getToken()
             .then(jwt => {
@@ -60,7 +55,7 @@ class Motivators extends Component {
             .then(quoteData => this.setState({ userQuotes: quoteData.data }))
             .catch(err => console.error(err));
     }
-    
+
     addQuote = (likedQuote) => {
         const addedQuote = this.state.zenQuotes.filter(quoteObj => quoteObj.quote === likedQuote);
         console.log(addedQuote);
@@ -76,10 +71,21 @@ class Motivators extends Component {
             .catch(err => console.error(err));
     }
 
-    // deleteQuote = (unlikedQuote) => {
-    //     const updatedQuotes = this
-
-    // }
+    deleteQuote = async (unlikedQuote) => {
+        try {
+            const res = await this.props.auth0.getIdTokenClaims();
+            const jwt = res.__raw;
+            const config = {
+                headers: { 'Authorization': `Bearer ${jwt}` }
+            }
+            const url = `${process.env.REACT_APP_SERVER}/quotes/${unlikedQuote._id}`;
+            await axios.delete(url, config);
+            const updatedQuotes = this.state.userQuotes.filter(quote => quote._id !== unlikedQuote._id);
+            this.setState({userQuotes: updatedQuotes});
+        } catch(error) {
+            console.error(error)
+        }
+    }
 
     handleSubmit = (e) => {
         e.preventDefault();

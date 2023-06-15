@@ -14,7 +14,7 @@ class Quotes extends React.Component {
                         this.props.zenQuotes.map((item, idx) => {
                             const imageIndex = idx % imagesLength;
                             const imageUrl = images[imageIndex];
-                            console.log(imageUrl);
+                            // console.log(imageUrl);
                             return (
                                 <Carousel.Item key={idx}>
                                     <img
@@ -34,7 +34,6 @@ class Quotes extends React.Component {
                 </Carousel >
             </>
         )
-
     }
 }
 
