@@ -23,6 +23,11 @@ class Motivators extends Component {
         }
     }
 
+    //this route hits the server and then grabs previously liked quotes from the user's db
+    componentDidMount(){
+        this.getQuotes();
+    }
+
     getToken = () => {
         return this.props.auth0.getIdTokenClaims()
             .then(res => res.__raw)
@@ -30,13 +35,14 @@ class Motivators extends Component {
             .catch(err => console.error(err))
     }
 
-    getQuotes = () => {
+    //this route hits the server and then Zen Quotes API
+    getZenQuotes = () => {
         this.getToken()
             .then(jwt => {
                 const config = {
                     headers: { 'Authorization': `Bearer ${jwt}` }
                 }
-                return axios.get(`${process.env.REACT_APP_SERVER}/quotes`, config)
+                return axios.get(`${process.env.REACT_APP_SERVER}/zenquotes`, config)
             })
             .then(quoteData => this.setState({ quotes: quoteData.data.data }))
             .catch(err => console.error(err));
@@ -54,8 +60,12 @@ class Motivators extends Component {
                 }
                 return axios.post(`${process.env.REACT_APP_SERVER}/quotes`, addedQuote[0], config)
             })
-            // .then(response => this.setState({ singleQuote: [...this.state.quotes, response.data] }))
             .catch(err => console.error(err));
+    }
+
+    deleteQuote = (unlikedQuote) => {
+        const updatedQuotes = this
+
     }
 
     handleSubmit = (e) => {
