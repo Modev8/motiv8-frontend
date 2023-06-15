@@ -24,7 +24,7 @@ class Quotes extends React.Component {
                                         <cite>{item.author}</cite>
                                     </footer>
                                 </blockquote>
-                            <Button onClick={ () => this.props.addQuote(item.author)}>❤️</Button>
+                            <Button onClick={ () => this.props.addQuote(item.quote)}>❤️</Button>
                             </Card.Body>
                         </Card>)}
 
