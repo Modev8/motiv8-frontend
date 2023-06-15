@@ -1,44 +1,41 @@
 import React from "react";
-import { Card, Button} from "react-bootstrap";
+import { Button, Carousel } from "react-bootstrap";
 import { withAuth0 } from "@auth0/auth0-react";
 
 class Quotes extends React.Component {
 
     render() {
-        // console.log('this.props.quotes contains', this.props.quotes)
-        // const quoteInfo = this.props.quotes;
+        const { images } = this.props;
+        const imagesLength = images.length;
         return (
             <>
-                {
-                    this.props.quotes.map((item, idx) =>
-                        <Card>
-                            <Card.Header>Quote #{idx + 1}</Card.Header>
-                            <Card.Body>
-                                <blockquote className="blockquote mb-0">
-                                    <p>
-                                        {' '}
-                                        {item.quote}
-                                        {' '}
-                                    </p>
-                                    <footer className="blockquote-footer">
-                                        <cite>{item.author}</cite>
-                                    </footer>
-                                </blockquote>
-                            <Button onClick={ () => this.props.addQuote(item.quote)}>❤️</Button>
-                            </Card.Body>
-                        </Card>)}
-
+                <Carousel>
+                    {
+                        this.props.quotes.map((item, idx) => {
+                            const imageIndex = idx % imagesLength;
+                            const imageUrl = images[imageIndex];
+                            console.log(imageUrl);
+                            return (
+                                <Carousel.Item key={idx}>
+                                    <img
+                                        className="d-block w-100"
+                                        src={imageUrl}
+                                        alt="First slide"
+                                    />
+                                    <Carousel.Caption>
+                                        <h1>{item.quote}</h1>
+                                        <p>{`- ${item.author}`}</p>
+                                        <Button onClick={() => this.props.addQuote(item.author)}>❤️</Button>
+                                    </Carousel.Caption>
+                                </Carousel.Item>
+                            );
+                        }
+                        )}
+                </Carousel >
             </>
         )
+
     }
 }
-// class Quote extends React.Component {
-//     render() {
-//         console.log('items that live in the quote component', this.props)
-//         return (
-//             <>
-//             </>
-//         )
-//     }
-// }
+
 export default withAuth0(Quotes);
