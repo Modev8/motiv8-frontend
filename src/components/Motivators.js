@@ -99,10 +99,10 @@ class Motivators extends Component {
                                 quotes={this.state.quotes}
                                 addQuote={this.addQuote} 
                                 images={this.state.staticImages}/>
+                            <Buttons getQuotes={this.getQuotes} />
                             <Photo />
                             {vidsArr}
                             <Comments />
-                            <Buttons getQuotes={this.getQuotes} />
                         </>
 
                         : <Form onSubmit={this.handleSubmit}>

@@ -25,7 +25,7 @@ class Quotes extends React.Component {
                                     <Carousel.Caption>
                                         <h1>{item.quote}</h1>
                                         <p>{`- ${item.author}`}</p>
-                                        <Button onClick={() => this.props.addQuote(item.author)}>❤️</Button>
+                                        <Button onClick={() => this.props.addQuote(item.quote)}>❤️</Button>
                                     </Carousel.Caption>
                                 </Carousel.Item>
                             );
