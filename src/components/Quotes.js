@@ -2,7 +2,6 @@ import React from "react";
 import { Button, Carousel } from "react-bootstrap";
 import { withAuth0 } from "@auth0/auth0-react";
 
-
 class Quotes extends React.Component {
 
     render() {
@@ -33,7 +32,6 @@ class Quotes extends React.Component {
                         }
                         )}
                 </Carousel >
-
             </>
         )
 
