@@ -11,7 +11,7 @@ class Quotes extends React.Component {
             <>
                 <Carousel>
                     {
-                        this.props.quotes.map((item, idx) => {
+                        this.props.zenQuotes.map((item, idx) => {
                             const imageIndex = idx % imagesLength;
                             const imageUrl = images[imageIndex];
                             console.log(imageUrl);

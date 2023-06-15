@@ -19,6 +19,7 @@ class Motivators extends Component {
             motivation: null,
             staticImages: images.images,
             videos: [],
+            userQuotes: [],
             singleQuote: {}
         }
     }
@@ -56,7 +57,7 @@ class Motivators extends Component {
                 }
                 return axios.get(`${process.env.REACT_APP_SERVER}/quotes`, config)
             })
-            .then(quoteData => this.setState({ quotes: quoteData.data.data }))
+            .then(quoteData => this.setState({ userQuotes: quoteData.data }))
             .catch(err => console.error(err));
     }
     
@@ -118,7 +119,7 @@ class Motivators extends Component {
 
                         ? <>
                             <Quotes
-                                quotes={this.state.zenQuotes}
+                                zenQuotes={this.state.zenQuotes}
                                 addQuote={this.addQuote}
                                 images={this.state.staticImages} />
                             <Buttons getZenQuotes={this.getZenQuotes} />
