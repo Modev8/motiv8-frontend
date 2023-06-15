@@ -43,8 +43,8 @@ class Motivators extends Component {
     }
 
     addQuote = (likedQuote) => {
-        console.log('newQuote ', likedQuote);
         const addedQuote = this.state.quotes.filter(quoteObj => quoteObj.quote === likedQuote);
+        console.log(addedQuote);
         this.setState({singleQuote: addedQuote}, () => console.log(this.state.singleQuote));
 
         this.getToken()
@@ -52,7 +52,7 @@ class Motivators extends Component {
                 const config = {
                     headers: { 'Authorization': `Bearer ${jwt}` }
                 }
-                return axios.post(`${process.env.REACT_APP_SERVER}/quotes`, addedQuote, config)
+                return axios.post(`${process.env.REACT_APP_SERVER}/quotes`, addedQuote[0], config)
             })
             // .then(response => this.setState({ singleQuote: [...this.state.quotes, response.data] }))
             .catch(err => console.error(err));
