@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import Header from './components/Header';
-// import Profile from './components/Profile';
+import Profile from './components/Profile';
 import Home from './components/Home';
 import Motivators from './components/Motivators';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
@@ -29,10 +29,10 @@ class App extends React.Component {
               element={isAuthenticated && <Motivators />}
             >
             </Route> */}
-            {/* <Route
+            <Route
               path="/profile"
               element={isAuthenticated && <Profile />}
-            ></Route> */}
+            ></Route>
           </Routes>
         </Router>
       </>
