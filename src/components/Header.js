@@ -3,12 +3,12 @@ import { withAuth0 } from "@auth0/auth0-react";
 import LoginButton from "./Login";
 import LogoutButton from "./Logout";
 
-class Header extends React.Component{
-    render(){
-        const {isAuthenticated} = this.props.auth0;
-        return(
+class Header extends React.Component {
+    render() {
+        const { isAuthenticated } = this.props.auth0;
+        return (
             <>
-                {isAuthenticated ? <LogoutButton/> : <LoginButton/>}
+                {isAuthenticated ? <LogoutButton /> : <LoginButton />}
             </>
         )
     }

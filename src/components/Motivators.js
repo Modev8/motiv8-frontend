@@ -1,4 +1,3 @@
-
 import { Component } from "react";
 import axios from "axios";
 import Quotes from "./Quotes";
@@ -22,10 +21,6 @@ class Motivators extends Component {
             userQuotes: [],
             singleQuote: {}
         }
-    }
-
-    componentDidMount() {
-        this.getQuotes();
     }
 
     getToken = () => {
@@ -100,7 +95,7 @@ class Motivators extends Component {
     }
 
     displayVids = (e) => {
-        let url = `${process.env.REACT_APP_SERVER} /shorts?q=${this.state.motivation}`;
+        let url = `${process.env.REACT_APP_SERVER}/shorts?q=${this.state.motivation}`;
         axios.get(url)
             .then(res => {
                 const vids = res.data.data;

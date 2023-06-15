@@ -9,8 +9,8 @@ class Vids extends React.Component {
         const videoIdIndex = parts.indexOf('vi') + 1;
         let output;
         (videoIdIndex !== 0) && (videoIdIndex < parts.length)
-        ? output = parts[videoIdIndex]
-        : output = null;
+            ? output = parts[videoIdIndex]
+            : output = null;
         return output
     }
 
@@ -21,10 +21,10 @@ class Vids extends React.Component {
         };
         return (
             <>
-               <div style={{ maxWidth: '500px', margin: '0 auto', padding: '16px' }}>
+                <div style={{ maxWidth: '500px', margin: '0 auto', padding: '16px' }}>
                     <YouTube
-                    videoId={this.getVideoId(this.props.url)}
-                    opts = {opts}
+                        videoId={this.getVideoId(this.props.url)}
+                        opts={opts}
                     />
                 </div>
 
