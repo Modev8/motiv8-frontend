@@ -28,9 +28,10 @@ class Header extends React.Component {
                         </Col>
                     </Navbar.Collapse>
                 </Navbar>
-        </>
+            </>
         )
     }
 }
+
 
 export default withAuth0(Header);
