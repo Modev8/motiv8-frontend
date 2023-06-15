@@ -11,10 +11,10 @@ class Buttons extends React.Component {
                     <Button variant="primary" onClick={this.props.getZenQuotes}>Find More Quotes</Button>
                 </Row>
                 {/* <Row>
+                    <Button variant="warning" onClick={this.props.deleteQuote}>👎</Button> //this button needs to move to Profile
+                </Row> */}
+                {/* <Row>
                     <Button variant="success" >Get Videos</Button>
-                </Row>
-                <Row>
-                    <Button variant="warning">Get Images</Button>
                 </Row>
                 <Row>
                     <Button variant="danger">Find Motiv8tors</Button>

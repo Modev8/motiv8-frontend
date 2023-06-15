@@ -19,7 +19,7 @@ class Motivators extends Component {
             staticImages: images.images,
             videos: [],
             userQuotes: [],
-            singleQuote: {}
+            selectedQuote: {}
         }
     }
 
@@ -59,7 +59,7 @@ class Motivators extends Component {
     addQuote = (likedQuote) => {
         const addedQuote = this.state.zenQuotes.filter(quoteObj => quoteObj.quote === likedQuote);
         console.log(addedQuote);
-        this.setState({ singleQuote: addedQuote }, () => console.log(this.state.singleQuote));
+        this.setState({ selectedQuote: addedQuote }, () => console.log(this.state.selectedQuote));
 
         this.getToken()
             .then(jwt => {
@@ -81,9 +81,29 @@ class Motivators extends Component {
             const url = `${process.env.REACT_APP_SERVER}/quotes/${unlikedQuote._id}`;
             await axios.delete(url, config);
             const updatedQuotes = this.state.userQuotes.filter(quote => quote._id !== unlikedQuote._id);
-            this.setState({userQuotes: updatedQuotes});
-        } catch(error) {
+            this.setState({ userQuotes: updatedQuotes });
+        } catch (error) {
             console.error(error)
+        }
+    }
+
+    updateFaveQuote = async (faveQuote) => {
+        try {
+            const res = await this.props.auth0.getIdTokenClaims();
+            const jwt = res.__raw;
+
+            const config = {
+                headers: { 'Authorization': `Bearer ${jwt}` }
+            }
+            console.log('faveQuote shows', faveQuote)
+            const url = `${process.env.REACT_APP_SERVER}/quotes/${faveQuote._id}`;
+            const newFave = {"faveQuote": true};
+            await axios.put(url, newFave, config);  //somehow need to change faveQuote to "true"
+            // const userQuotes = [...this.state.userQuotes];
+            // userQuotes.splice(userQuotes.findIndex(quote => quote._id === this.state.userQuotes._id), 1, faveQuote);
+            // this.setState({ userQuotes });
+        } catch(error) {
+            console.error(error);
         }
     }
 
@@ -127,7 +147,9 @@ class Motivators extends Component {
                             <Quotes
                                 zenQuotes={this.state.zenQuotes}
                                 addQuote={this.addQuote}
-                                images={this.state.staticImages} />
+                                deleteQuote={this.deleteQuote}
+                                images={this.state.staticImages}
+                                updateFaveQuote={this.updateFaveQuote} />
                             <Buttons getZenQuotes={this.getZenQuotes} />
                             <Photo />
                             {vidsArr}
