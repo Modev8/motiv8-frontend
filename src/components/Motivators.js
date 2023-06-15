@@ -95,8 +95,6 @@ class Motivators extends Component {
                     this.state.currentVids
 
                         ? <>
-                            <ProductivityScore />
-                            <CumulativeScore />
                             <Quotes
                                 quotes={this.state.quotes}
                                 addQuote={this.addQuote} 
@@ -105,8 +103,6 @@ class Motivators extends Component {
                             {vidsArr}
                             <Comments />
                             <Buttons getQuotes={this.getQuotes} />
-                            <Loved />
-
                         </>
 
                         : <Form onSubmit={this.handleSubmit}>
