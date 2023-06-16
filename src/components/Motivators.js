@@ -3,7 +3,6 @@ import { Component } from "react";
 import axios from "axios";
 import Quotes from "./Quotes";
 import Buttons from "./Buttons";
-import Comments from "./Comments";
 import Photo from "./Photo";
 import images from "../testData/images.json";
 import { Form, Button } from "react-bootstrap";
@@ -145,7 +144,6 @@ class Motivators extends Component {
                             <Buttons getZenQuotes={this.getZenQuotes} />
                             <Photo />
                             {vidsArr}
-                            <Comments />
                         </>
 
                         : <Form onSubmit={this.handleSubmit}>
