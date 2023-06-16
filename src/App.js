@@ -33,7 +33,7 @@ class App extends React.Component {
         headers: { 'Authorization': `Bearer ${jwt}` }
       };
       const quoteData = await axios.get(`${process.env.REACT_APP_SERVER}/quotes`, config);
-      console.log('in try catch',quoteData)
+      // console.log('in try catch',quoteData)
       this.setState({ userQuotes: quoteData.data });
     } catch (err) {
       console.error(err);
@@ -56,8 +56,27 @@ class App extends React.Component {
     }
 }
 
+updateFaveQuote = async (faveQuote) => {
+  try {
+      const res = await this.props.auth0.getIdTokenClaims();
+      const jwt = res.__raw;
 
-
+      const config = {
+          headers: { 'Authorization': `Bearer ${jwt}` }
+      }
+      console.log('faveQuote shows', faveQuote)
+      const url = `${process.env.REACT_APP_SERVER}/quotes/${faveQuote._id}`;
+      faveQuote.faveQuote = true;
+    
+      await axios.put(url, faveQuote, config);  //somehow need to change faveQuote to "true"
+      const userQuotes = [...this.state.userQuotes];
+      console.log('userQuotes shows', userQuotes);
+      userQuotes.splice(userQuotes.findIndex(quote => quote._id === faveQuote._id), 1, faveQuote);
+      this.setState({ userQuotes });
+  } catch(error) {
+      console.error(error);
+  }
+}
 
   render() {
     const { isAuthenticated } = this.props.auth0;
@@ -76,14 +95,8 @@ class App extends React.Component {
                   : <Motivators
                     getToken={this.getToken} />
                   }></Route>
-            {/* <Route
-              path="/motivators"
-              element={isAuthenticated && <Motivators />}
-            >
-            </Route> */}
+
             <Route
-              // onClick={this.getQuotes}
-              
               path="/profile"
               element={
                 isAuthenticated
@@ -92,7 +105,8 @@ class App extends React.Component {
                   getQuotes={this.getQuotes}
                   getToken={this.getToken}
                   userQuotes={userQuotes} 
-                  deleteQuote={this.deleteQuote}/>
+                  deleteQuote={this.deleteQuote}
+                  updateFaveQuote={this.updateFaveQuote}/>
               }
             ></Route>
           </Routes>
