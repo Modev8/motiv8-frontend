@@ -23,13 +23,6 @@ class Motivators extends Component {
         }
     }
 
-//     getToken = () => {
-//         return this.props.auth0.getIdTokenClaims()
-//             .then(res => res.__raw)
-//             // .then(token => console.log(token))
-//             .catch(err => console.error(err))
-//     }
-
     //this route hits the server and then Zen Quotes API
     getZenQuotes = () => {
         this.props.getToken()
@@ -42,8 +35,6 @@ class Motivators extends Component {
             .then(quoteData => this.setState({ zenQuotes: quoteData.data.data }))
             .catch(err => console.error(err));
     }
-
-
 
     addQuote = (likedQuote) => {
         const addedQuote = this.state.zenQuotes.filter(quoteObj => quoteObj.quote === likedQuote);
@@ -58,44 +49,6 @@ class Motivators extends Component {
                 return axios.post(`${process.env.REACT_APP_SERVER}/quotes`, addedQuote[0], config)
             })
             .catch(err => console.error(err));
-    }
-
-
-//     deleteQuote = async (unlikedQuote) => {
-//         try {
-//             const res = await this.props.auth0.getIdTokenClaims();
-//             const jwt = res.__raw;
-//             const config = {
-//                 headers: { 'Authorization': `Bearer ${jwt}` }
-//             }
-//             const url = `${process.env.REACT_APP_SERVER}/quotes/${unlikedQuote._id}`;
-//             await axios.delete(url, config);
-//             const updatedQuotes = this.state.userQuotes.filter(quote => quote._id !== unlikedQuote._id);
-//             this.setState({ userQuotes: updatedQuotes });
-//         } catch (error) {
-//             console.error(error)
-//         }
-//     }
-
-
-    updateFaveQuote = async (faveQuote) => {
-        try {
-            const res = await this.props.auth0.getIdTokenClaims();
-            const jwt = res.__raw;
-
-            const config = {
-                headers: { 'Authorization': `Bearer ${jwt}` }
-            }
-            console.log('faveQuote shows', faveQuote)
-            const url = `${process.env.REACT_APP_SERVER}/quotes/${faveQuote._id}`;
-            const newFave = {"faveQuote": true};
-            await axios.put(url, newFave, config);  //somehow need to change faveQuote to "true"
-            // const userQuotes = [...this.state.userQuotes];
-            // userQuotes.splice(userQuotes.findIndex(quote => quote._id === this.state.userQuotes._id), 1, faveQuote);
-            // this.setState({ userQuotes });
-        } catch(error) {
-            console.error(error);
-        }
     }
 
     handleSubmit = (e) => {

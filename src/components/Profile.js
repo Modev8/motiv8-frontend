@@ -16,7 +16,7 @@ class Profile extends React.Component {
             width: "900px",
             height: "900px"
         }
-        console.log(this.props.userQuotes)
+        // console.log(this.props.userQuotes)
         return (
             isAuthenticated && (
                 <>
@@ -50,6 +50,7 @@ class Profile extends React.Component {
                                                     <h1>{item.quote}</h1>
                                                     <p>{item.author}</p>
                                                     <Button variant="danger" onClick={() => this.props.deleteQuote(item)}>🗑</Button>
+                                                    <Button variant="primary" onClick={() => this.props.updateFaveQuote(item)}>🫶🏼</Button>
                                                 </Carousel.Caption>
                                             </Carousel.Item>
 
