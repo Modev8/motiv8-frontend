@@ -15,7 +15,7 @@ class Motivators extends Component {
         this.state = {
             zenQuotes: [],
             currentVids: false,
-            motivation: null,
+            motivation: '',
             staticImages: images.images,
             videos: [],
             userQuotes: [],
