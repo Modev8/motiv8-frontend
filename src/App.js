@@ -8,7 +8,6 @@ import Data from "./testData/images.json"
 import Motivators from './components/Motivators';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { withAuth0 } from '@auth0/auth0-react';
-import Photo from './components/Photo';
 
 class App extends React.Component {
   constructor(props) {
