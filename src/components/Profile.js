@@ -1,6 +1,5 @@
-
 import React from "react";
-import { Card, Button, Carousel, Row, Col } from "react-bootstrap";
+import { Card, Button, Carousel, Row, Col} from "react-bootstrap";
 import { withAuth0 } from "@auth0/auth0-react";
 
 class Profile extends React.Component {
@@ -50,7 +49,7 @@ class Profile extends React.Component {
                                                 <Carousel.Caption>
                                                     <h1>{item.quote}</h1>
                                                     <p>{item.author}</p>
-                                                    <Button variant="danger" onClick={this.props.deleteQuote()}>🗑</Button>
+                                                    <Button variant="danger" onClick={() => this.props.deleteQuote(item)}>🗑</Button>
                                                 </Carousel.Caption>
                                             </Carousel.Item>
 
