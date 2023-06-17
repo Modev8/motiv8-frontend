@@ -57,6 +57,7 @@ class App extends React.Component {
 }
 
 updateFaveQuote = async (faveQuote) => {
+  faveQuote.faveQuote = true;
   try {
       const res = await this.props.auth0.getIdTokenClaims();
       const jwt = res.__raw;
@@ -64,9 +65,8 @@ updateFaveQuote = async (faveQuote) => {
       const config = {
           headers: { 'Authorization': `Bearer ${jwt}` }
       }
-      console.log('faveQuote shows', faveQuote)
+      console.log('faveQuote shows', faveQuote);
       const url = `${process.env.REACT_APP_SERVER}/quotes/${faveQuote._id}`;
-      faveQuote.faveQuote = true;
     
       await axios.put(url, faveQuote, config);  //somehow need to change faveQuote to "true"
       const userQuotes = [...this.state.userQuotes];
